@@ -1,7 +1,7 @@
 import streamlit as st
 from gccompute_V2 import main as gccompute, read_fasta_file
-from io import StringIO
 
+# Usage: 'streamlit run 03_webapp/streamlit_app.py'
 if 'gc_result' not in st.session_state:
     st.session_state.gc_result = ""
 

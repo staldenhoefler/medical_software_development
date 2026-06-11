@@ -1,0 +1,64 @@
+%! Author = denis
+%! Date = 11.06.2026
+
+% Preamble
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{amsmath}
+\usepackage[margin=2.5cm]{geometry}
+
+\title{Evaluation of the TMS Software Requirements Specification}
+\author{Denis Schatzmann}
+\date{\today}
+
+% Document
+\begin{document}
+
+\maketitle
+
+The answers refer to the final version 1.0 of the TMS SRS, dated January 2003.
+
+\section{Who created the final version?}
+Version 1.0 (31 December 2002) was revised by Osamah Yacoub and Ahmad Arrabi.
+The document was produced by AlliedSoft for the USAID AMIR Program in Jordan.
+
+\section{What is the intended use?}
+To capture the complete TMS requirements as a basis for client approval, design,
+development and testing. The system itself is a Web based system for MoICT to
+acquire and track training and testing of Government of Jordan (GoJ) employees.
+
+\section{Who are the intended users?}
+The actors in section 4.2: System Administrator, PMU Administrator, TP
+Administrator, Training Coordinator (TC) and GoJ Employee, each with different
+access rights.
+
+\section{What is the standard environment?}
+A Web based application over Internet or intranet, using Internet Explorer 5.0 or
+above at 800 by 600 resolution, in English or Arabic, on a 3-tier architecture
+with XML. The runtime hardware and software are supplied by the client.
+
+\section{Evaluation of a functional requirement}
+FR19.4 RFI Response Attachment: an RFI Response can attach a binary file of 2 MB
+maximum.
+\begin{itemize}
+  \item Complete: partly, the allowed file formats are not stated.
+  \item Accurate: partly, it conflicts with Assumption 10 and use case 4.3.14 on
+        whether one or several attachments are allowed.
+  \item Unambiguous: no, ``binary file'' and the number of files are unclear.
+  \item Traceable: yes, the ID FR19.4 links to use cases 4.3.14 and 4.3.15.
+  \item Testable: yes, a file up to 2 MB is accepted and a larger one rejected.
+\end{itemize}
+
+\section{Is there a requirement regarding data security?}
+Yes. Section 5.2 defines role based access with four levels (SEC01 PMU full
+control, SEC02 TP Administrators, SEC03 Training Coordinators, SEC04 GoJ
+Employees), enforced by the Login use case. It covers only authentication and
+authorisation, not encryption, backup or audit logging.
+
+\section{Is there a requirement how the software should be designed?}
+Yes. SYS03 requires a 3-tier architecture with XML for interoperability with
+future e-Government applications, as also shown in section 3. DOC02 additionally
+requires a separate software design specification document.
+
+\end{document}

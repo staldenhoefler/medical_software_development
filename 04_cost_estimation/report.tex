@@ -1,0 +1,114 @@
+%! Author = denis
+%! Date = 09.06.2026
+
+% Preamble
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{amsmath}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+
+\title{Cost and Time Estimation\\\large Sensor Data Collector (Mobile App)}
+\author{Denis Schatzmann}
+\date{\today}
+
+% Document
+\begin{document}
+
+\maketitle
+
+\section{Task}
+The Sensor Data Collector lets a user pick sensors from a select box, add them
+to a list (duplicates ignored), remove a marked sensor, and toggle data
+collection with a Start/Stop button. On stop the collected data is sent to a
+backend service. This report estimates size, effort, schedule and cost using
+the methods from the lecture: Function Point Analysis for size and COCOMO for
+effort and schedule.
+
+\section{Size: Function Point Analysis}
+Each function of the application is weighted with the low or average value from
+the IFPUG categories.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l l c}
+\toprule
+\textbf{Function} & \textbf{Category} & \textbf{FP} \\
+\midrule
+Add sensor                  & External input         & 3 \\
+Remove marked sensor        & External input         & 3 \\
+Start/Stop collection       & External input         & 3 \\
+Send collected data to backend & External output     & 5 \\
+Populate sensor select box  & External inquiry        & 4 \\
+List of selected sensors    & Internal logical file   & 7 \\
+\midrule
+\textbf{Total} & & \textbf{25} \\
+\bottomrule
+\end{tabular}
+\caption{Function point count.}
+\end{table}
+
+As a quick check, the widget point method counts four input widgets,
+three describing widgets and one list, so $8 \times 2 = 16$ function points.
+Both results place the application in the same small range, so the count of
+about 25 FP is plausible.
+
+\section{Effort: COCOMO}
+The function points are converted to lines of code with the language table.
+For a Java or Kotlin codebase the factor is 53 LOC per FP:
+\[
+\text{LOC} = 25 \times 53 = 1325 \approx 1.33 \text{ KDL}.
+\]
+Applying COCOMO in organic mode ($a = 3.2$, $b = 1.05$):
+\[
+E_i = 3.2 \cdot 1.33^{1.05} \approx 4.3 \text{ person months}.
+\]
+Because this is medical software, the required reliability cost factor is rated
+high ($1.15$), giving an effort adjustment factor $EAF = 1.15$:
+\[
+E = EAF \cdot E_i = 1.15 \cdot 4.3 \approx 4.9 \text{ person months}.
+\]
+
+\section{Schedule and Staffing}
+The duration and the average number of staff follow from the organic formulas:
+\[
+D = 2.5 \cdot E^{0.38} = 2.5 \cdot 4.9^{0.38} \approx 4.6 \text{ months},
+\qquad
+P = \frac{E}{D} \approx 1.1 \text{ persons}.
+\]
+So one developer working about $4.6$ months covers the work. With the effort
+partitioning for a small project the $4.9$ person months split as:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l c c}
+\toprule
+\textbf{Phase} & \textbf{Share} & \textbf{Person months} \\
+\midrule
+Design               & 19\% & 0.9 \\
+Implementation       & 63\% & 3.1 \\
+Integration and tests & 18\% & 0.9 \\
+\bottomrule
+\end{tabular}
+\caption{Effort distribution for a small project.}
+\end{table}
+
+\section{Cost}
+Total cost combines personnel, software and hardware. At a fully
+loaded rate of about CHF 12'000 per person month, the personnel cost is
+\[
+4.9 \times 12'000 \approx \text{CHF } 59'000.
+\]
+Adding roughly CHF 4'000 for tooling licences, test devices and the cloud
+backend gives a total of about \textbf{CHF 63'000} for one developer over about
+\textbf{4.6 months}.
+
+\section{Accuracy}
+At the specification stage the estimate is only accurate within a factor of
+about $0.5$ to $2$, so a range of roughly CHF 32'000 to CHF 126'000
+should be communicated. The estimate assumes one cross platform codebase, an
+existing backend API, and standard sensor access without custom drivers.
+
+\end{document}

@@ -1,0 +1,8 @@
+{
+    "database_url": "pqtst.fhnw.ch",
+	"database_port": "5432",
+    "database_username": "dbusername_tst",
+	"database_password": "dbpassword_tst",
+	"log_level": "info",
+	"log_file": "backendservice_tst.log"
+}

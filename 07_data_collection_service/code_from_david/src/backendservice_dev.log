@@ -1,0 +1,18 @@
+2026-06-12 11:22:03,472 [MainThread  ] [INFO ]  Starting service, logging to backendservice_dev.log
+2026-06-12 11:22:03,495 [MainThread  ] [INFO ]  [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.207.3.206:5000
+2026-06-12 11:22:03,495 [MainThread  ] [INFO ]  [33mPress CTRL+C to quit[0m
+2026-06-12 11:24:36,053 [Thread-1 (pr] [INFO ]  Created patient 8762ce65-6640-11f1-b08c-6ca100562018 (Test Patient)
+2026-06-12 11:24:36,055 [Thread-1 (pr] [INFO ]  127.0.0.1 - - [12/Jun/2026 11:24:36] "POST /patient HTTP/1.1" 200 -
+2026-06-12 11:24:36,101 [Thread-2 (pr] [DEBUG]  Memory Usage: 42.375 MB
+2026-06-12 11:24:36,101 [Thread-2 (pr] [WARNI]  Experiment doesnotexist not found
+2026-06-12 11:24:36,101 [Thread-2 (pr] [INFO ]  127.0.0.1 - - [12/Jun/2026 11:24:36] "[33mGET /experiment?id=doesnotexist HTTP/1.1[0m" 404 -
+2026-06-12 11:26:44,258 [MainThread  ] [INFO ]  Starting service, logging to backendservice_dev.log
+2026-06-12 11:26:44,279 [MainThread  ] [INFO ]  [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.207.3.206:5000
+2026-06-12 11:26:44,279 [MainThread  ] [INFO ]  [33mPress CTRL+C to quit[0m
+2026-06-12 11:27:11,175 [Thread-1 (pr] [INFO ]  127.0.0.1 - - [12/Jun/2026 11:27:11] "GET / HTTP/1.1" 200 -

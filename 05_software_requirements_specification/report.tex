@@ -17,48 +17,53 @@
 
 \maketitle
 
-The answers refer to the final version 1.0 of the TMS SRS, dated January 2003.
+All the answers are about the final version 1.0 of the document, from January 2003.
 
 \section{Who created the final version?}
-Version 1.0 (31 December 2002) was revised by Osamah Yacoub and Ahmad Arrabi.
-The document was produced by AlliedSoft for the USAID AMIR Program in Jordan.
+Version 1.0 (31 December 2002) was done by Osamah Yacoub and Ahmad Arrabi. The
+company that wrote the document is AlliedSoft, for a USAID program in Jordan.
 
 \section{What is the intended use?}
-To capture the complete TMS requirements as a basis for client approval, design,
-development and testing. The system itself is a Web based system for MoICT to
-acquire and track training and testing of Government of Jordan (GoJ) employees.
+The document writes down everything the system has to do, so the client can
+agree to it and the team can build and test it. The system itself is a website
+that is used to manage the training and testing of government employees in
+Jordan.
 
 \section{Who are the intended users?}
-The actors in section 4.2: System Administrator, PMU Administrator, TP
-Administrator, Training Coordinator (TC) and GoJ Employee, each with different
-access rights.
+The users are listed in section 4.2. There is a system administrator, two kinds
+of other administrators, a training coordinator, and a normal employee. Each of
+them can do different things in the system.
 
 \section{What is the standard environment?}
-A Web based application over Internet or intranet, using Internet Explorer 5.0 or
-above at 800 by 600 resolution, in English or Arabic, on a 3-tier architecture
-with XML. The runtime hardware and software are supplied by the client.
+It is a website that runs over the internet or a company network. You open it in
+Internet Explorer (version 5.0 or newer) at a screen size of 800 by 600, and it
+works in English or Arabic. The client provides the computers and software it
+runs on.
 
 \section{Evaluation of a functional requirement}
-FR19.4 RFI Response Attachment: an RFI Response can attach a binary file of 2 MB
-maximum.
+I picked requirement FR19.4. It says that a response can have a file attached to
+it, and the file can be at most 2 MB.
 \begin{itemize}
-  \item Complete: partly, the allowed file formats are not stated.
-  \item Accurate: partly, it conflicts with Assumption 10 and use case 4.3.14 on
-        whether one or several attachments are allowed.
-  \item Unambiguous: no, ``binary file'' and the number of files are unclear.
-  \item Traceable: yes, the ID FR19.4 links to use cases 4.3.14 and 4.3.15.
-  \item Testable: yes, a file up to 2 MB is accepted and a larger one rejected.
+  \item Complete: only partly. It does not say which file types are allowed.
+  \item Accurate: only partly. It is not clear if you can attach one file or
+        several, because other parts of the document say different things.
+  \item Unambiguous: no. It is not clear what kind of file is meant or how many
+        files you can add.
+  \item Traceable: yes. The requirement has an ID and points to the matching use
+        cases.
+  \item Testable: yes. You can just try a file under 2 MB (should work) and one
+        over 2 MB (should be blocked).
 \end{itemize}
 
 \section{Is there a requirement regarding data security?}
-Yes. Section 5.2 defines role based access with four levels (SEC01 PMU full
-control, SEC02 TP Administrators, SEC03 Training Coordinators, SEC04 GoJ
-Employees), enforced by the Login use case. It covers only authentication and
-authorisation, not encryption, backup or audit logging.
+Yes. Section 5.2 says that different users get different access rights. There are
+four levels, and you have to log in to get your level. It only talks about
+logging in and what each user is allowed to do. It does not say anything about
+things like encryption or backups.
 
 \section{Is there a requirement how the software should be designed?}
-Yes. SYS03 requires a 3-tier architecture with XML for interoperability with
-future e-Government applications, as also shown in section 3. DOC02 additionally
-requires a separate software design specification document.
+Yes. One requirement says the system should be built in three layers so it can
+work together with other government applications later. Another one says the team
+has to write a separate document just for the software design.
 
 \end{document}

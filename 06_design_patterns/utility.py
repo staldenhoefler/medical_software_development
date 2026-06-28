@@ -13,6 +13,5 @@ class Utility:
     @staticmethod
     def read_fasta_file(path):
         lines = open(path).read().splitlines()
-        # drop the header line(s) starting with '>' and join the rest
         seq = ''.join(line for line in lines if not line.startswith('>'))
         return Seq(seq)

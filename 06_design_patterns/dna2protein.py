@@ -10,10 +10,7 @@ class DNASequenceGenerator:
         return ''.join(random.choice(self.alphabet) for _ in range(n))
 
 
-# ----------------------------------------------------------------------
-# Step 4: SequenceStorage as a Singleton.
-# Design pattern: Singleton -> only one object can ever exist.
-# ----------------------------------------------------------------------
+# Singleton
 class SequenceStorage:
     _instance = None
 
@@ -33,10 +30,6 @@ class SequenceStorage:
         return list(self._data.keys())
 
 
-# ----------------------------------------------------------------------
-# Step 6: support DNA *and* protein sequences.
-# A small class hierarchy keeps the two kinds apart.
-# ----------------------------------------------------------------------
 class DNASequence:
     kind = 'dna'
 
@@ -62,9 +55,7 @@ class ProteinSequence:
         return str(self.seq)
 
 
-# ----------------------------------------------------------------------
-# Step 7: factory that creates a DNA or protein sequence based on a flag.
-# ----------------------------------------------------------------------
+# factory
 class SequenceFactory:
     @staticmethod
     def create_sequence(data, kind='dna'):
@@ -75,9 +66,7 @@ class SequenceFactory:
         else:
             raise ValueError(f'unknown sequence kind: {kind}')
 
-
 if __name__ == '__main__':
-    # Steps 1 + 2: translate a DNA sequence using the Utility class.
     dna = Seq('ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG')
     rna = Utility.transcribe_dna_to_rna(dna)
     protein = Utility.translate_rna_to_protein(rna)
@@ -85,7 +74,6 @@ if __name__ == '__main__':
     print(f'RNA:     {rna}')
     print(f'Protein: {protein}')
 
-    # Step 3 + 4: store the sequence in the (singleton) SequenceStorage.
     print('-' * 60)
     storage_a = SequenceStorage()
     storage_a.save('demo', dna)
@@ -93,14 +81,12 @@ if __name__ == '__main__':
     print(f'Only one instance exists: {storage_a is storage_b}')
     print(f"Read back from storage:   {storage_b.read('demo')}")
 
-    # Step 5: coding sequence of gene CD28 -> protein sequence.
     print('-' * 60)
     cd28 = DNASequence(Utility.read_fasta_file('../02_GC_Content_1/data/gene.fna'))
     cd28_protein = cd28.to_protein()
     SequenceStorage().save('CD28', cd28_protein)
     print(f'CD28 protein: {cd28_protein}')
 
-    # Step 6 + 7: build DNA and protein sequences via the factory.
     print('-' * 60)
     seq_dna = SequenceFactory.create_sequence('ATGAAATAG', kind='dna')
     seq_protein = SequenceFactory.create_sequence('MKVL', kind='protein')

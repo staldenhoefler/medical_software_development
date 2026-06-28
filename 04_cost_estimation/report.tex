@@ -1,5 +1,5 @@
 %! Author = denis
-%! Date = 09.06.2026
+%! Date = 28.06.2026
 
 % Preamble
 \documentclass[11pt]{article}
@@ -23,63 +23,49 @@
 The Sensor Data Collector lets a user pick sensors from a select box, add them
 to a list (duplicates ignored), remove a marked sensor, and toggle data
 collection with a Start/Stop button. On stop the collected data is sent to a
-backend service. This report estimates size, effort, schedule and cost using
-the methods from the lecture: Function Point Analysis for size and COCOMO for
-effort and schedule.
+backend service. This report follows the steps from the lecture: estimate the
+size, derive effort and schedule with COCOMO, and finally the cost.
 
-\section{Size: Function Point Analysis}
-Each function of the application is weighted with the low or average value from
-the IFPUG categories.
+\section{Size}
+This is a small app that is mostly user interface with very little logic in the
+background. For that case the lecture recommends the \emph{widget point} method,
+so we use it as the main estimate and the function point count as a cross-check.
+
+We count the interface elements:
 
 \begin{table}[h]
 \centering
-\begin{tabular}{l l c}
+\begin{tabular}{l c}
 \toprule
-\textbf{Function} & \textbf{Category} & \textbf{FP} \\
+\textbf{Widget type} & \textbf{Count} \\
 \midrule
-Add sensor                  & External input         & 3 \\
-Remove marked sensor        & External input         & 3 \\
-Start/Stop collection       & External input         & 3 \\
-Send collected data to backend & External output     & 5 \\
-Populate sensor select box  & External inquiry        & 4 \\
-List of selected sensors    & Internal logical file   & 7 \\
+Input widgets (select box, add, remove, Start/Stop)  & 4 \\
+Composite widgets (sensor list)                      & 1 \\
+Describing widgets (labels)                          & 3 \\
 \midrule
-\textbf{Total} & & \textbf{25} \\
+\textbf{Widget points} & \textbf{8} \\
 \bottomrule
 \end{tabular}
-\caption{Function point count.}
+\caption{Widget point count.}
 \end{table}
 
-As a quick check, the widget point method counts four input widgets,
-three describing widgets and one list, so $8 \times 2 = 16$ function points.
-Both results place the application in the same small range, so the count of
-about 25 FP is plausible.
+\noindent
+With $\text{FP} = 2 \times \text{widget points}$ this gives \textbf{16 function
+points}. A classic function point count over the same six functions (the three
+buttons as external inputs, the backend send as an external output, the select
+box as an external inquiry, and the sensor list as an internal file) comes out
+somewhat higher, at about 23 FP. Since the app is essentially a thin user
+interface over an existing backend, we take the lower widget-point value of
+16 FP as the estimate and treat the 23 FP as a conservative upper bound.
 
 \section{Effort: COCOMO}
-The function points are converted to lines of code with the language table.
-For a Java or Kotlin codebase the factor is 53 LOC per FP:
-\[
-\text{LOC} = 25 \times 53 = 1325 \approx 1.33 \text{ KDL}.
-\]
-Applying COCOMO in organic mode ($a = 3.2$, $b = 1.05$):
-\[
-E_i = 3.2 \cdot 1.33^{1.05} \approx 4.3 \text{ person months}.
-\]
-Because this is medical software, the required reliability cost factor is rated
-high ($1.15$), giving an effort adjustment factor $EAF = 1.15$:
-\[
-E = EAF \cdot E_i = 1.15 \cdot 4.3 \approx 4.9 \text{ person months}.
-\]
+Converting to lines of code with the language table (53 LOC/FP for Java/Kotlin)
+gives $16 \times 53 \approx 850$ LOC, i.e.\ about $0.85$ KDL. Applying COCOMO in
+organic mode results in a base effort of roughly \textbf{2.7 person months}.
 
-\section{Schedule and Staffing}
-The duration and the average number of staff follow from the organic formulas:
-\[
-D = 2.5 \cdot E^{0.38} = 2.5 \cdot 4.9^{0.38} \approx 4.6 \text{ months},
-\qquad
-P = \frac{E}{D} \approx 1.1 \text{ persons}.
-\]
-So one developer working about $4.6$ months covers the work. With the effort
-partitioning for a small project the $4.9$ person months split as:
+Because this is medical software, the required reliability is rated high, which
+adds about 15\,\%. The adjusted effort is therefore about \textbf{3.1 person
+months}. Split over the usual phases of a small project:
 
 \begin{table}[h]
 \centering
@@ -87,28 +73,32 @@ partitioning for a small project the $4.9$ person months split as:
 \toprule
 \textbf{Phase} & \textbf{Share} & \textbf{Person months} \\
 \midrule
-Design               & 19\% & 0.9 \\
-Implementation       & 63\% & 3.1 \\
-Integration and tests & 18\% & 0.9 \\
+Design                & 19\% & 0.6 \\
+Implementation        & 63\% & 2.0 \\
+Integration and tests & 18\% & 0.6 \\
 \bottomrule
 \end{tabular}
 \caption{Effort distribution for a small project.}
 \end{table}
 
+\section{Schedule}
+Using the organic schedule formula, 3.1 person months stretch over about
+\textbf{3.8 months} with an average staffing of roughly one person. So a single
+developer working a bit under four months covers the work.
+
 \section{Cost}
-Total cost combines personnel, software and hardware. At a fully
-loaded rate of about CHF 12'000 per person month, the personnel cost is
+With a monthly salary of CHF 10'000, the personnel cost is
 \[
-4.9 \times 12'000 \approx \text{CHF } 59'000.
+3.1 \times 10\,000 \approx \text{CHF } 31\,000.
 \]
-Adding roughly CHF 4'000 for tooling licences, test devices and the cloud
-backend gives a total of about \textbf{CHF 63'000} for one developer over about
-\textbf{4.6 months}.
+Adding about CHF 2'000 for tooling licences, test devices and the cloud backend
+gives a total of about \textbf{CHF 33'000} for one developer over roughly
+\textbf{3.8 months}.
 
 \section{Accuracy}
-At the specification stage the estimate is only accurate within a factor of
-about $0.5$ to $2$, so a range of roughly CHF 32'000 to CHF 126'000
-should be communicated. The estimate assumes one cross platform codebase, an
-existing backend API, and standard sensor access without custom drivers.
+At this early stage the estimate is only accurate within a factor of about
+$0.5$ to $2$, so the realistic range is roughly CHF 17'000 to CHF 66'000. The
+estimate assumes one cross-platform codebase, an existing backend API, and
+standard sensor access without custom drivers.
 
 \end{document}
